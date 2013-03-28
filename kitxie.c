@@ -71,8 +71,8 @@ void init(void)
 
 
 	/* Configure Timer 0 for 1ms interupt*/
-	TCCR0A = (1<<WGM01); /* CTM Clear Timer on compare match mode */
-	TCCR0B |= (1<<CS00) | (1<<CS01); /* Set the prescaler to 64 */
+	TCCR0A = (1<<WGM01); 				/* CTM Clear Timer on compare match mode */
+	TCCR0B |= (1<<CS00) | (1<<CS01); 	/* Set the prescaler to 64 */
 	/* ((16000000/8)/1000) = 250 */
 	OCR0A = 249;
 	/* Enable compare interupt */
@@ -89,7 +89,7 @@ void init(void)
 	TCCR1B &= ~(1<<WGM13);
 
 	TCCR1B |= (1<<CS12);		/* Prescaler set to 256 */
-	//OCR1A = 10;					/* Output Compare A register */
+	//OCR1A = 10;				/* Output Compare A register */
 	//TIMSK |= (1<<OCIE1A);		/* Output Compare A Match Interrupt Enable */
 
 }
@@ -133,6 +133,10 @@ void show_number(uint16_t display_value)
 	shiftout(out);
 }
 
+/**
+ * Decodes the bits colected with the dcf77
+ * module.
+ */
 void get_new_time()
 {
 	uint8_t i;
@@ -309,6 +313,7 @@ int main (void)
 	return 0;
 }
 
+/* Interupt trigered by the dcf77 pulse */
 ISR (INT0_vect)
 {
 	uint16_t mesure;
@@ -317,7 +322,6 @@ ISR (INT0_vect)
 	
 	if (!(PIND & _BV(DCF77_PIN))) {
 		if(mesure>1500) {
-			
 			if(dcf_seconds == 59) {
 				get_new_time();
 			}
@@ -400,7 +404,10 @@ ISR (INT1_vect)
 	}
 }
 
-
+/**
+ * Timer uses count seconds
+ * and mesure the dcf77 pulses
+ */
 ISR (TIMER0_COMPA_vect)  // timer0 overflow interrupt
 {
 	time_count++;
