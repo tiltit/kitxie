@@ -405,7 +405,7 @@ ISR (INT1_vect)
 }
 
 /**
- * Timer uses count seconds
+ * Timer used to count seconds
  * and mesure the dcf77 pulses
  */
 ISR (TIMER0_COMPA_vect)  // timer0 overflow interrupt
