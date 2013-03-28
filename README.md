@@ -1,7 +1,7 @@
 Kitxie kitchen timer
 ====================
 
-Some picutures
+Some pictures
 --------------
 
 ![Work in progress 1](pictures/kitxie_picture1.jpg)
