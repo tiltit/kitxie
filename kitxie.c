@@ -150,9 +150,8 @@ void get_new_time()
 	/* Check if start of encoded (bit 20) time is true */
 	if(dcf_data[2] & (1 << 4) ) {
 		for(i=0;i!=59;++i) {
-
-			/* Add up the parity bits */
 			if(dcf_data[i/8] & (1 << (i % 8))) {
+				/* Add up the parity bits */
 				if((i>20) && (i<28))
 					minutes_parity++;
 				if((i>28) && (i<35))
